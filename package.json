@@ -1,5 +1,5 @@
 {
-  "name": "hackerrank",
+  "name": "node-hackerrank",
   "version": "1.0.0",
   "description": "A Node.js library for the HackerRank API.",
   "main": "index.js",
