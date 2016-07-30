@@ -2,9 +2,6 @@
 var fs = require("fs");
 var HackerRank = require("machinepack-hackerrank");
 
-// Get languages file
-var languages = JSON.parse(fs.readFileSync('languages.json', 'utf8')).languages.codes;
-
 // Submit a string of code
 module.exports.evaluateCode = function(code, language, testcases, answers, callback) {
     var results = [];
