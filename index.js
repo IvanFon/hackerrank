@@ -8,7 +8,7 @@ module.exports.evaluateCode = function(code, language, testcases, answers, callb
     HackerRank.submit({
         apiKey: 'hackerrank|731195-684|a196c8ef286bf980b8b79ba0cff378e550678d5e',
         source: code,
-        language: languages[language],
+        language: language,
         testcases: testcases,
         wait: true,
         format: "json"
@@ -19,6 +19,7 @@ module.exports.evaluateCode = function(code, language, testcases, answers, callb
         },
         // Code compiled successfully
         success: function(response) {
+            console.log(response);
             response = JSON.parse(response).result;
             response.stderr.forEach(function(val, index, array) {
                 if (val === false) {
@@ -43,7 +44,7 @@ module.exports.evaluateFile = function(file, language, testcases, answers, callb
     HackerRank.submitFile({
         apiKey: 'hackerrank|731195-684|a196c8ef286bf980b8b79ba0cff378e550678d5e',
         filePath: file,
-        language: languages[language],
+        language: language,
         testcases: testcases,
         wait: true,
         format: "json"
