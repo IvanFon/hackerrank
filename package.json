@@ -1,6 +1,6 @@
 {
   "name": "node-hackerrank",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A Node.js library for the HackerRank API.",
   "main": "index.js",
   "scripts": {
