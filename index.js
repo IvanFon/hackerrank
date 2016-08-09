@@ -19,7 +19,6 @@ module.exports.evaluateCode = function(code, language, testcases, answers, callb
         },
         // Code compiled successfully
         success: function(response) {
-            console.log(response);
             response = JSON.parse(response).result;
             response.stderr.forEach(function(val, index, array) {
                 if (val === false) {
@@ -32,8 +31,11 @@ module.exports.evaluateCode = function(code, language, testcases, answers, callb
                     results.push("error");
                 }
             });
-            console.log("Results: " + results);
-            callback(results);
+            callback({
+                results: results,
+                message: response.message,
+                time: response.time
+            });
         }
     });
 };
@@ -51,18 +53,23 @@ module.exports.evaluateFile = function(file, language, testcases, answers, callb
     }).exec({
         // Unexpected error
         error: function(err) {
-            console.log(err);
+            throw err;
         },
         // Code compiled successfully
         success: function(response) {
-            JSON.parse(response).result.stdout.forEach(function(val, index, array) {
+            response = JSON.parse(response).result;
+            response.stdout.forEach(function(val, index, array) {
                 if (val == answers[index]) {
                     results.push(true);
                 } else {
                     results.push(false);
                 }
             });
-            callback(results);
+            callback({
+                results: results,
+                message: response.message,
+                time: response.time
+            });
         }
     });
 };
