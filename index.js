@@ -28,7 +28,7 @@ module.exports.evaluateCode = function(code, language, testcases, answers, callb
                         results.push(false);
                     }
                 } else {
-                    results.push("error");
+                    results.push(val);
                 }
             });
             callback({
