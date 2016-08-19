@@ -2,9 +2,14 @@
 var fs = require("fs");
 var HackerRank = require("machinepack-hackerrank");
 
+module.exports.defaultChecker = function(a, b) {
+    return a.replace(/(\r\n|\n|\r)/gm, '').replace(/\s/g, '') == b.replace(/(\r\n|\n|\r)/gm, '').replace(/\s/g, '')
+}
+
 // Submit a string of code
-module.exports.evaluateCode = function (code, language, testcases, answers, callback) {
+module.exports.evaluateCode = function (caseNum, code, language, testcases, answers, checker, callback) {
     var results = [];
+    var casen = caseNum;
     HackerRank.submit({
         apiKey: 'hackerrank|731195-684|a196c8ef286bf980b8b79ba0cff378e550678d5e',
         source: code,
@@ -26,7 +31,7 @@ module.exports.evaluateCode = function (code, language, testcases, answers, call
             } else {
                 response.stderr.forEach(function (val, index, array) {
                     if (val === false) {
-                        if (response.stdout[index] == answers[index]) {
+                        if (checker(response.stdout[index], answers[index])) {
                             results.push(true);
                         } else {
                             results.push(false);
@@ -38,7 +43,8 @@ module.exports.evaluateCode = function (code, language, testcases, answers, call
                 callback({
                     results: results,
                     message: response.message,
-                    time: response.time
+                    time: response.time,
+                    casen: casen
                 });
             }
         }
